@@ -3,6 +3,9 @@
   "private": true,
   "type": "module",
   "description": "John Mulcahy's portfolio, johns3d.art",
+  "engines": {
+    "node": ">=24"
+  },
   "scripts": {
     "start": "eleventy --serve --port=8080",
     "build": "eleventy"
