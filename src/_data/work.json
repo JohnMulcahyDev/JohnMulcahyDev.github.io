@@ -1,5 +1,6 @@
 [
-  { "title": "Hover Bike Courier", "tag": "UE4 · LATEST", "cat": "vehicle", "featured": true, "url": "/projects/hover-bike/", "video": "/video/bike360.mp4" },
+  { "title": "Hover Bike Courier", "tag": "UE4", "cat": "vehicle", "featured": true, "url": "/projects/hover-bike/", "video": "/video/bike360.mp4" },
+  { "title": "Exodus",                "tag": "UE5",           "cat": "env",     "url": "/projects/exodus/" },
   { "title": "McLaren 570S",          "tag": "UE4",           "cat": "vehicle", "url": "/projects/mclaren-570s/" },
   { "title": "GT Collection",         "tag": "UE4",           "cat": "vehicle", "url": "/projects/gt-collection/" },
   { "title": "Military Tanks",        "tag": "Corona · VR",   "cat": "vehicle", "url": "/projects/military-tanks/" },

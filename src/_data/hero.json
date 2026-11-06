@@ -1,8 +1,10 @@
 [
-  { "title": "Hover Bike Courier", "engine": "Unreal Engine 4", "class": "Concept vehicle", "latest": true, "url": "/projects/hover-bike/",
+  { "title": "Hover Bike Courier", "engine": "Unreal Engine 4", "class": "Concept vehicle", "url": "/projects/hover-bike/",
     "img": "/img/hero/bikecel.jpg", "pos": "50% 30%", "alt": "Side view of the orange and blue hover bike floating above its shadow" },
+  { "title": "Exodus", "engine": "Unreal Engine 5", "class": "Environment art", "url": "/projects/exodus/",
+    "img": "/img/hero/exodus.jpg", "alt": "Exodus screenshot: a suited figure and two machines in zero gravity amid floating debris and glowing green crystals" },
   { "title": "McLaren 570S", "engine": "Unreal Engine 4", "class": "Vehicle", "url": "/projects/mclaren-570s/",
-    "img": "/img/hero/mclaren5.jpg", "pos": "50% 45%", "alt": "Close front three-quarter view of a papaya McLaren GT4 in a dark garage" },
+    "img": "/img/hero/mclaren5.jpg", "pos": "50% 45%", "alt": "Close front three-quarter view of a papaya McLaren 570S in a dark garage" },
   { "title": "BMW M4 DTM", "engine": "Unreal Engine 4", "class": "GT collection", "url": "/projects/gt-collection/",
     "img": "/img/hero/dtm.jpg", "alt": "Side profile of a yellow BMW M4 DTM car" },
   { "title": "Dual Clutch Gearbox", "engine": "Corona", "class": "Visualisation", "url": "/projects/dual-clutch-gearbox/",

@@ -6,7 +6,7 @@
   const lbVid = lb.querySelector("video");
 
   const open = mode => { lb.dataset.mode = mode; lb.classList.add("open"); };
-  document.querySelectorAll("figure img").forEach(img => img.addEventListener("click", () => {
+  document.querySelectorAll("figure .media > img").forEach(img => img.addEventListener("click", () => {
     lbImg.src = img.currentSrc || img.src; lbImg.alt = img.alt; open("img");
   }));
   // Videos open uncropped, from the same moment, with controls to scrub

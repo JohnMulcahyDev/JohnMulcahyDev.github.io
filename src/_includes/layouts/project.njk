@@ -60,7 +60,12 @@ scripts: [project]
     {%- for m in s.items %}
     {%- set crop %}{% if m.ratio %}aspect-ratio: {{ m.ratio }};{% endif %}{% if m.pos %} object-position: {{ m.pos }};{% endif %}{% endset %}
     <figure class="reveal{% if m.wide %} wide{% endif %}"{% if s.layout == "row" %} style="flex-grow: {{ m.ratio or 1.7778 }}"{% endif %}><div class="media">
-      {%- if m.video %}<video data-src="{{ m.video | pvid(folder) }}"{% if m.poster %} poster="{{ m.poster | pimg(folder) }}"{% endif %} muted loop playsinline preload="none"{% if m.alt %} aria-label="{{ m.alt }}"{% endif %}{% if crop %} style="{{ crop | trim }}"{% endif %}></video>
+      {#- YouTube: a link card rather than an embed (age-restricted videos can't play off YouTube) -#}
+      {%- if m.youtube %}<a class="yt" href="https://www.youtube.com/watch?v={{ m.youtube }}{% if m.start %}&amp;t={{ m.start }}s{% endif %}" target="_blank" rel="noopener">
+        <img src="{{ m.poster | pimg(folder) }}" alt="" loading="lazy">
+        <span class="yt-play"><i aria-hidden="true"></i><b>{{ m.label or "Watch on YouTube" }}</b><small>{% if m.start %}From {{ (m.start / 60) | round(0, "floor") }}:{{ m.start % 60 | pad }} · {% endif %}{{ m.note or "Opens YouTube" }}</small></span>
+      </a>
+      {%- elif m.video %}<video data-src="{{ m.video | pvid(folder) }}"{% if m.poster %} poster="{{ m.poster | pimg(folder) }}"{% endif %} muted loop playsinline preload="none"{% if m.alt %} aria-label="{{ m.alt }}"{% endif %}{% if crop %} style="{{ crop | trim }}"{% endif %}></video>
       {%- else %}<img src="{{ m.src | pimg(folder) }}" alt="{{ m.alt }}" loading="lazy">{% endif -%}
     </div>{% if m.cap %}<figcaption>{{ m.cap | safe }}</figcaption>{% endif %}</figure>
     {%- endfor %}
