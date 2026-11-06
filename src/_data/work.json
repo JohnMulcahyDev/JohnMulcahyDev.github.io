@@ -1,0 +1,19 @@
+[
+  { "title": "Hover Bike Courier", "tag": "UE4 · NEW", "cat": "vehicle", "featured": true, "url": "/projects/hover-bike/",
+    "img": "/img/hero/bike16.jpg", "video": "/video/bike360.mp4" },
+  { "title": "McLaren 520S",          "tag": "UE4",           "cat": "vehicle", "img": "/img/hero/mclarenb.jpg" },
+  { "title": "GT Collection",         "tag": "UE4",           "cat": "vehicle", "img": "/img/grid/CarThumbnail.jpg" },
+  { "title": "Military Tanks",        "tag": "Corona · VR",   "cat": "vehicle", "img": "/img/grid/TankThumbnail.jpg" },
+  { "title": "Dual Clutch Gearbox",   "tag": "Corona · AR",   "cat": "viz",     "img": "/img/grid/DCTThumbnail.jpg" },
+  { "title": "Triumph Cylinder Head", "tag": "Corona · AR",   "cat": "viz",     "img": "/img/grid/CylinderThumbnail.jpg" },
+  { "title": "Triumph Clutch",        "tag": "Corona · AR",   "cat": "viz",     "img": "/img/grid/TBThumbnail.jpg" },
+  { "title": "Sci-Fi Door",           "tag": "UE4",           "cat": "prop",    "img": "/img/grid/doorThumbnail.jpg" },
+  { "title": "Erma 712 Rifle",        "tag": "Corona",        "cat": "prop",    "img": "/img/grid/gunThumbnail.jpg" },
+  { "title": "Bone Sword",            "tag": "Marmoset",      "cat": "prop",    "img": "/img/grid/SwordThumbnail.jpg" },
+  { "title": "Wizarding Wardrobe",    "tag": "UE4",           "cat": "prop",    "img": "/img/grid/WardrobeThumbnail.jpg" },
+  { "title": "Old School Desk",       "tag": "UE4",           "cat": "prop",    "img": "/img/grid/deskThumbnail.jpg" },
+  { "title": "Cruiser Skateboard",    "tag": "Marmoset",      "cat": "prop",    "img": "/img/grid/SkateThumbnail.jpg" },
+  { "title": "Stylised Jade Amulet",  "tag": "UE4",           "cat": "prop",    "img": "/img/grid/JadeThumbnail.jpg" },
+  { "title": "Mazda MX-5",            "tag": "UE5",           "cat": "vehicle", "img": "/img/grid/MadzaThumbnail.jpg" },
+  { "title": "XWB Engine",            "tag": "Unity · AR/VR", "cat": "viz",     "img": "/img/grid/XWBThumbnail.jpg" }
+]

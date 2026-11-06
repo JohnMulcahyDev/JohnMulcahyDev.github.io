@@ -1,0 +1,76 @@
+---
+layout: layouts/base.njk
+pageTitle: John Mulcahy — Senior Vehicle Artist
+description: Portfolio of John Mulcahy, a senior vehicle development artist building real-time vehicles and hard-surface assets for games, VR and AR.
+nav: work
+styles: [home]
+scripts: [home]
+---
+{%- set first = hero[0] -%}
+<!-- ===== Viewport hero (slides come from _data/hero.json) ===== -->
+<section class="viewport" aria-roledescription="carousel" aria-label="Latest work">
+  <div class="stage">
+    {%- for s in hero %}
+    <div class="slide{% if loop.first %} active{% endif %}" data-title="{{ s.title }}" data-object="{{ s.title | asset }}" data-engine="{{ s.engine }}" data-class="{{ s.class }}"{% if s.latest %} data-latest{% endif %}{% if s.url %} data-href="{{ s.url }}"{% endif %}>
+      <img src="{{ s.img }}" alt="{{ s.alt }}"{% if s.pos %} style="object-position: {{ s.pos }}"{% endif %}{% if not loop.first %} loading="lazy"{% endif %}>
+    </div>
+    {%- endfor %}
+  </div>
+
+  <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+
+  <dl class="vp-stats" aria-live="polite">
+    <div><dt>OBJECT</dt><dd>{{ first.title | asset }}</dd></div>
+    <div><dt>ENGINE</dt><dd>{{ first.engine }}</dd></div>
+    <div><dt>CLASS</dt><dd>{{ first.class }}</dd></div>
+    {% if first.latest %}<div class="latest"><dt>STATUS</dt><dd>LATEST</dd></div>{% endif %}
+  </dl>
+
+  <div class="gizmo" aria-hidden="true"><i class="x"></i><i class="y"></i><i class="z"></i></div>
+
+  <div class="title"><div class="title-inner">
+    <small>{{ first.class }} · 01</small>
+    <h2>{{ first.title }}</h2>
+    <a href="{{ first.url or '#work' }}" class="view">Open project →</a>
+  </div></div>
+
+  <div class="timeline">
+    <button class="step prev" aria-label="Previous slide">‹</button>
+    <span class="count"><b>01</b> / {{ hero.length | pad }}</span>
+    <div class="dots"></div>
+    <button class="step next" aria-label="Next slide">›</button>
+  </div>
+
+  <a href="#work" class="scroll-cue" aria-label="Scroll to work">SCROLL <svg viewBox="0 0 24 24"><path d="M5 9l7 7 7-7"/></svg></a>
+</section>
+
+<!-- ===== Properties strip ===== -->
+<section class="props">
+  <h1><strong>Senior Vehicle Development Artist</strong> with 9 years building real-time vehicles, props and mechanical assets for games, VR and AR.</h1>
+  <ul class="tools"><li>Unreal Engine 5</li><li>Unity</li><li>Maya</li><li>3ds Max</li><li>ZBrush</li><li>Substance</li></ul>
+</section>
+
+<!-- ===== Work grid (cards come from _data/work.json, in that order) ===== -->
+<main class="work" id="work">
+  <div class="work-head">
+    <h3>Scene <b id="count">{{ work.length }} assets</b></h3>
+    <div class="filters">
+      <button class="on" data-f="all">All</button>
+      <button data-f="vehicle">Vehicles</button>
+      <button data-f="prop">Props &amp; Weapons</button>
+      <button data-f="viz">Visualisation</button>
+    </div>
+  </div>
+  <div class="grid" id="grid">
+    {%- for w in work %}
+    {%- set tagName = "a" if w.url else "div" %}
+    <{{ tagName }}{% if w.url %} href="{{ w.url }}"{% endif %} class="card reveal{% if w.featured %} featured{% endif %}{% if not w.url %} no-page{% endif %}" data-c="{{ w.cat }}"{% if w.featured %} data-featured{% endif %}>
+      <div class="thumb">
+        {%- if w.video %}<video data-src="{{ w.video }}" poster="{{ w.img }}" muted loop playsinline preload="none" aria-label="{{ w.title }} turntable"></video>
+        {%- else %}<img src="{{ w.img }}" alt="{{ w.title }}" loading="lazy">{% endif -%}
+      </div>
+      <div class="meta"><h4>{{ w.title | asset }}</h4><span class="tag{% if 'NEW' in w.tag %} new{% endif %}">{{ w.tag }}</span></div>
+    </{{ tagName }}>
+    {%- endfor %}
+  </div>
+</main>

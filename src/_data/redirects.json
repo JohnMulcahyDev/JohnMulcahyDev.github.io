@@ -1,0 +1,20 @@
+[
+  { "from": "HoverBike.html",   "to": "/projects/hover-bike/" },
+  { "from": "Resume.html",      "to": "/about/" },
+  { "from": "Contact.html",     "to": "/#contact" },
+  { "from": "Mclaren520s.html", "to": "/#work" },
+  { "from": "Vehiclesue4.html", "to": "/#work" },
+  { "from": "Tanks.html",       "to": "/#work" },
+  { "from": "DCT.html",         "to": "/#work" },
+  { "from": "CylinderHead.html","to": "/#work" },
+  { "from": "TBClutch.html",    "to": "/#work" },
+  { "from": "ScifiDoor.html",   "to": "/#work" },
+  { "from": "Gun.html",         "to": "/#work" },
+  { "from": "Sword.html",       "to": "/#work" },
+  { "from": "Wardrobe.html",    "to": "/#work" },
+  { "from": "Desk.html",        "to": "/#work" },
+  { "from": "Skateboard.html",  "to": "/#work" },
+  { "from": "JadeAmulet.html",  "to": "/#work" },
+  { "from": "MazdaMX-5.html",   "to": "/#work" },
+  { "from": "XWB.html",         "to": "/#work" }
+]

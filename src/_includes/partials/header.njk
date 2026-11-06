@@ -1,0 +1,24 @@
+{#- Shared header + mobile menu. `nav` in a page's front matter ("work" or "about") highlights its tab. -#}
+{%- set onWork = ' class="on"' if nav == "work" else "" -%}
+{%- set onAbout = ' class="on"' if nav == "about" else "" -%}
+<header class="site-header">
+  <a href="/" class="brand">{{ site.name }}<small>{{ site.role }}</small></a>
+  <nav class="nav" aria-label="Main">
+    <a href="/#work"{{ onWork | safe }}>Work</a>
+    <a href="/about/"{{ onAbout | safe }}>About</a>
+    <a href="{{ site.cv }}" target="_blank" rel="noopener">CV</a>
+    <a href="#contact">Contact</a>
+    <span class="social">
+      <a href="{{ site.artstation }}" aria-label="ArtStation" target="_blank" rel="noopener">{% include "partials/icon-artstation.njk" %}</a>
+      <a href="{{ site.linkedin }}" aria-label="LinkedIn" target="_blank" rel="noopener">{% include "partials/icon-linkedin.njk" %}</a>
+    </span>
+  </nav>
+  <button class="menu-btn" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+</header>
+<div class="mobile-menu" aria-hidden="true">
+  <a href="/#work"{{ onWork | safe }}>Work</a>
+  <a href="/about/"{{ onAbout | safe }}>About</a>
+  <a href="{{ site.cv }}" target="_blank" rel="noopener">CV</a>
+  <a href="#contact">Contact</a>
+  <div class="small"><a href="{{ site.artstation }}" target="_blank" rel="noopener">ArtStation</a><a href="{{ site.linkedin }}" target="_blank" rel="noopener">LinkedIn</a></div>
+</div>

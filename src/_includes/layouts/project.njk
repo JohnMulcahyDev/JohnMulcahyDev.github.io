@@ -1,0 +1,55 @@
+---
+layout: layouts/base.njk
+nav: work
+styles: [project]
+scripts: [project]
+---
+{#-
+  Project page template. A project file sets these in its front matter:
+    title, description, kicker, engine, class
+    hero: { img, alt, pos }
+    intro: HTML paragraphs        cta: { label, url }        (optional)
+    specs: list of [label, value] rows; a value of "TODO" shows as a reminder
+    next:  { title, img, url }                              (optional)
+  Everything written below the front matter becomes the numbered sections.
+-#}
+<section class="p-hero">
+  <img src="{{ hero.img }}" alt="{{ hero.alt }}"{% if hero.pos %} style="object-position: {{ hero.pos }}"{% endif %}>
+  <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+  <dl class="vp-stats">
+    <div><dt>OBJECT</dt><dd>{{ title | asset }}</dd></div>
+    <div><dt>ENGINE</dt><dd>{{ engine }}</dd></div>
+    <div><dt>CLASS</dt><dd>{{ class }}</dd></div>
+  </dl>
+  <div class="gizmo" aria-hidden="true"><i class="x"></i><i class="y"></i><i class="z"></i></div>
+  <div class="p-title">
+    <a href="/#work" class="back">← All work</a>
+    <div class="kicker">{{ kicker }}</div>
+    <h1>{{ title }}</h1>
+  </div>
+</section>
+
+<div class="wrap overview">
+  <div class="reveal">
+    {{ intro | safe }}
+    {% if cta %}<a class="cta" href="{{ cta.url }}" target="_blank" rel="noopener">{{ cta.label }} →</a>{% endif %}
+  </div>
+  {% if specs %}
+  <dl class="specs reveal">
+    {%- for row in specs %}
+    <div><dt>{{ row[0] }}</dt><dd{% if row[1] == "TODO" %} class="todo"{% endif %}>{{ row[1] | safe }}</dd></div>
+    {%- endfor %}
+  </dl>
+  {% endif %}
+</div>
+
+{{ content | safe }}
+
+{% if next %}
+<a class="next" href="{{ next.url }}">
+  <img src="{{ next.img }}" alt="" loading="lazy">
+  <div><small>Next project →</small><strong>{{ next.title }}</strong></div>
+</a>
+{% endif %}
+
+<div class="lb" role="dialog" aria-label="Image viewer"><button aria-label="Close">×</button><img alt=""></div>
