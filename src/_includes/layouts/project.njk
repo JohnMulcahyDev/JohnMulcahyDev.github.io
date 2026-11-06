@@ -42,7 +42,7 @@ scripts: [project]
 <div class="wrap overview">
   <div class="reveal">
     {{ intro | safe }}
-    {% if cta %}<a class="cta" href="{{ cta.url }}" target="_blank" rel="noopener">{{ cta.label }} →</a>{% endif %}
+    {% if cta %}<a class="cta" href="{{ cta.url }}"{% if cta.url.startsWith("http") %} target="_blank" rel="noopener"{% endif %}>{{ cta.label }} →</a>{% endif %}
   </div>
   {% if specs %}
   <dl class="specs reveal">

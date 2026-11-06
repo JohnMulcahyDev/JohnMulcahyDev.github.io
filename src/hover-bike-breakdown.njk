@@ -1,0 +1,169 @@
+---
+layout: layouts/base.njk
+permalink: /projects/hover-bike/breakdown/
+title: Making the Hover Bike
+description: "How John Mulcahy built the Hover Bike Courier: design changes, boolean retopology, tileable wires, baking, layered Substance materials, UE4 lighting and a cel-shaded variant."
+ogImage: /img/hero/bikecel.jpg
+nav: work
+styles: [project, breakdown]
+scripts: [project, breakdown]
+---
+{%- set I = "/img/projects/hover-bike-breakdown/" -%}
+{%- set V = "/video/projects/hover-bike-breakdown/" -%}
+<article class="bd">
+  <header class="bd-head wrap">
+    <a href="/projects/hover-bike/" class="back">← Hover Bike Courier</a>
+    <div class="bd-kicker">Breakdown · Personal project</div>
+    <h1>Making the Hover&nbsp;Bike</h1>
+    <p class="standfirst">How a concept painting became a textured, lit and animated real-time asset in Unreal Engine&nbsp;4, and the decisions that shaped it along the way.</p>
+    <dl class="bd-meta">
+      <div><dt>Concept</dt><dd><a href="https://emiliograsso.com/" target="_blank" rel="noopener">Emilio Grasso</a></dd></div>
+      <div><dt>Parts</dt><dd>97</dd></div>
+      <div><dt>Triangles</dt><dd>52,753</dd></div>
+      <div><dt>Tools</dt><dd>3ds Max · ZBrush · Topogun · Substance · Photoshop · UE4</dd></div>
+    </dl>
+  </header>
+
+  <div class="bd-body wrap">
+    <nav class="bd-toc" aria-label="Chapters">
+      <ol>
+        <li><a href="#concept">The concept</a></li>
+        <li><a href="#rider">Designing around a rider</a></li>
+        <li><a href="#retopology">Retopology</a></li>
+        <li><a href="#uvs">UVs &amp; tileable wires</a></li>
+        <li><a href="#baking">Baking &amp; engine choice</a></li>
+        <li><a href="#texturing">Texturing</a></li>
+        <li><a href="#lighting">Lighting &amp; animation</a></li>
+        <li><a href="#cel">The cel-shaded variant</a></li>
+      </ol>
+    </nav>
+
+    <div class="bd-main">
+      <section class="bd-ch" id="concept">
+        <h2 data-n="01">The concept</h2>
+        <p>The starting point was Emilio Grasso's <em>Space Courier</em> concept. What drew me to it was its industrial, junker feel: a hand-built delivery bike that has clearly done a lot of miles. It reminded me of <em>Beyond Good and Evil</em>.</p>
+        <p>I wanted to stay close to the concept, but I allowed myself a few changes where I felt the design could work a little better, such as the framing under the seat. The high poly was built in 3ds Max and ZBrush, with some low-poly pieces mixed in at this stage.</p>
+        <figure class="reveal"><div class="media"><img src="/img/bike/concept-emilio-grasso.jpg" alt="Emilio Grasso's Space Courier concept painting" loading="lazy"></div><figcaption><b>Concept</b> by Emilio Grasso</figcaption></figure>
+        <div class="pair">
+          <figure class="reveal wide"><div class="media"><img src="{{ I }}01.jpg" alt="Two untextured high-poly views of the hover bike side by side" loading="lazy"></div><figcaption><b>High poly</b> work in progress</figcaption></figure>
+          <figure class="reveal"><div class="media"><img src="{{ I }}02.jpg" alt="High-poly hover bike from the front three-quarter" loading="lazy"></div></figure>
+          <figure class="reveal"><div class="media"><img src="{{ I }}03.jpg" alt="High-poly hover bike from the rear, showing the engine" loading="lazy"></div></figure>
+          <figure class="reveal"><div class="media"><img src="{{ I }}04.jpg" alt="High-poly hover bike in side view" loading="lazy"></div></figure>
+          <figure class="reveal"><div class="media"><img src="{{ I }}05.jpg" alt="White silhouette of the hover bike in side view" loading="lazy"></div><figcaption><b>Silhouette</b></figcaption></figure>
+        </div>
+      </section>
+
+      <section class="bd-ch" id="rider">
+        <h2 data-n="02">Designing around a rider</h2>
+        <p>A vehicle has to look like someone could actually ride it. Once I sat a generic human reference model on the bike, the seat and handlebars no longer felt right.</p>
+        <p>So I posed the rider in a more natural, relaxed position first and then reworked the bike to fit them, rather than the other way round. The same check showed the brake levers were far too big, so I scaled them down.</p>
+        <figure class="reveal fit"><div class="media"><img src="{{ I }}07.jpg" alt="Three views of a grey reference figure sitting on the bike" loading="lazy"></div><figcaption><b>Rider test</b> posing a reference figure</figcaption></figure>
+        <figure class="reveal"><div class="media"><img src="{{ I }}08.jpg" alt="The bike before and after the seat and handlebar redesign" loading="lazy"></div><figcaption><b>Old vs new</b> seat, handlebars and brake levers</figcaption></figure>
+      </section>
+
+      <section class="bd-ch" id="retopology">
+        <h2 data-n="03">Retopology</h2>
+        <p>After a week the bike was fully retopologised and UV'd: 97 parts, just over 50k triangles. Parts that repeat, like the blades and the hand grips, are duplicates sharing the same UV space, which leaves more texture resolution for everything else.</p>
+        <div class="pair">
+          <figure class="reveal"><div class="media"><img src="{{ I }}09.jpg" alt="Coloured low-poly bike shown with and without its duplicated parts" loading="lazy"></div><figcaption><b>Duplicates</b> with and without</figcaption></figure>
+          <figure class="reveal"><div class="media"><img src="{{ I }}10.jpg" alt="Low-poly wireframe of the whole bike, coloured by part" loading="lazy"></div><figcaption><b>Low poly</b> wireframe</figcaption></figure>
+        </div>
+        <h3>Booleans as a retopology tool</h3>
+        <p>For a large part of the retopology I used booleans, starting from the same models I'd built the high poly from:</p>
+        <ol class="steps">
+          <li>Take the high-poly base model.</li>
+          <li>Lower its TurboSmooth and remove edge loops by hand until the geometry count felt right.</li>
+          <li>Boolean parts in or out, with a Turn to Poly modifier on top to clear the floating vertices booleans leave behind.</li>
+          <li>Clean up: make sure it smooths correctly and remove any faces that aren't needed.</li>
+        </ol>
+        <figure class="reveal"><div class="media"><img src="{{ I }}11.jpg" alt="Four stages of a wheel hub going from high poly to clean low poly" loading="lazy"></div><figcaption><b>Steps 1–4</b> on the wheel hub</figcaption></figure>
+        <p>Anything sculpted in ZBrush that had to become part of the low poly, like the connections into the engine, I rebuilt in Topogun and then booleaned in or out where needed.</p>
+        <figure class="reveal"><div class="media"><img src="{{ I }}12.jpg" alt="Close-up of sculpted engine connections retopologised in Topogun" loading="lazy"></div><figcaption><b>Topogun</b> for sculpted parts</figcaption></figure>
+      </section>
+
+      <section class="bd-ch" id="uvs">
+        <h2 data-n="04">UVs &amp; tileable wires</h2>
+        <p>I UV as I go rather than leaving it to the end. That avoids the tedious job of unwrapping 80-odd models in one sitting, and I keep as many shells as straight as possible, which pays off later in baking and texturing.</p>
+        <figure class="reveal fit"><div class="media"><img src="{{ I }}13.jpg" alt="UV editor showing straightened shells laid out on a checker texture" loading="lazy"></div><figcaption><b>UV layout</b> shells kept straight</figcaption></figure>
+        <h3>Wires</h3>
+        <p>I knew the wires should use a tileable texture, so I built them to make that easy. Each one starts as a line spline, with the number of sides and the interpolation set to suit its thickness and shape. The key step is turning on <em>Generate Mapping Coords</em>, otherwise unwrapping becomes much harder. Then I removed unneeded loops and used Set Flow on any that looked out of place.</p>
+        <p>With a UV modifier on the finished wire, all that's left is stretching the UVs lengthwise until every wire uses the same texel density. Then it's ready to texture.</p>
+        <div class="pair">
+          <figure class="reveal"><div class="media"><img src="{{ I }}14.jpg" alt="A single wire made from a renderable spline in 3ds Max" loading="lazy"></div><figcaption><b>Spline</b> wire</figcaption></figure>
+          <figure class="reveal"><div class="media"><img src="{{ I }}15.jpg" alt="Wire UVs stretched lengthwise across a tileable texture" loading="lazy"></div><figcaption><b>UVs</b> stretched to tile</figcaption></figure>
+        </div>
+      </section>
+
+      <section class="bd-ch" id="baking">
+        <h2 data-n="05">Baking &amp; engine choice</h2>
+        <p>Before baking I checked that every high-poly and low-poly name matched. Not everything is baked: some of the smaller, simpler parts, like the seat fabric, just carry a little extra geometry so they work with a single smoothing group.</p>
+        <p>The first bake turned up a couple of issues, nothing major. The Iray render showed normal problems on the front tip and the box, but they didn't appear in Substance or UE4, so I put them down to Iray.</p>
+        <figure class="reveal"><div class="media"><img src="{{ I }}16.jpg" alt="Untextured baked bike rendered in Iray" loading="lazy"></div><figcaption><b>First bake</b> rendered in Iray</figcaption></figure>
+        <figure class="reveal"><div class="media"><img src="{{ I }}17.jpg" alt="The same surface in Iray with shading artefacts and clean in UE4" loading="lazy"></div><figcaption><b>Iray vs UE4</b> the artefacts only show in Iray</figcaption></figure>
+        <p class="note">I'd normally set a model up in Marmoset before texturing, because Substance doesn't always show materials as they'll really look. This time I went straight to UE4, because I wanted to rig the bike up and eventually make it a working vehicle.</p>
+        <figure class="reveal"><div class="media"><img src="{{ I }}18.jpg" alt="Untextured bike in the Unreal Engine 4 editor" loading="lazy"></div><figcaption><b>UE4</b> first look in engine</figcaption></figure>
+      </section>
+
+      <section class="bd-ch" id="texturing">
+        <h2 data-n="06">Texturing</h2>
+        <p>With most of the bike textured, I still had a list: I'd come to dislike the purple the more I looked at it, it needed a bolt pass, and a few areas wanted more roughness variation or extra wear.</p>
+        <h3>The paint, from the bottom up</h3>
+        <p>The paint material is a good example, because the rest of the materials use the same process, just with more or fewer layers.</p>
+        <div class="row">
+          <figure class="reveal" style="flex-grow: 1.64"><div class="media"><img src="{{ I }}19.jpg" alt="Close-up of chipped blue and orange paint on the bike's frame" loading="lazy"></div><figcaption><b>Paint</b> material</figcaption></figure>
+          <figure class="reveal" style="flex-grow: .324"><div class="media"><img src="{{ I }}20.jpg" alt="Substance Painter layer stack for the paint material" loading="lazy"></div><figcaption><b>Layers</b></figcaption></figure>
+        </div>
+        <ol class="steps">
+          <li><b>Base paint:</b> a grunge map and a filter break up the surface roughness.</li>
+          <li><b>Orange overlay:</b> grunge breaks up its mask, which sells the idea that it was painted over the base coat. Wear added later shows the metal underneath.</li>
+          <li><b>Surface detail:</b> more breakup in height and roughness.</li>
+          <li><b>Dirt:</b> added inside the paint material as well as over everything, so when paint chips away it looks like the dirt came off with it.</li>
+          <li><b>Sharpen</b> to finish the main material group.</li>
+        </ol>
+        <p>On top of that, the wear is split across several groups, which gives much finer control. The lowest group holds most of the main wear. The next is for anchor points, so I can fine-tune small wear on things like bolts, and it also holds the paint bubbles. Finding a texture that worked for those wasn't easy; the one that did, from textures.com, needed a slight blur and some levels to pull the spread back to the centre. The last group adds a simple dirt and scratch grunge for subtle wear over everything.</p>
+        <h3>The crate and its decals</h3>
+        <p>On a larger project, details like these would be cheaper as in-engine decals, with trim sheets for bolts and normal details. This bike only had to stand on its own, so I made sure the texel density was high enough to carry the smallest details directly.</p>
+        <p>I wanted a custom logo based on a real company. SpaceX already sounds futuristic, so the courier firm became <b>Space Logist-X</b>, made in Photoshop along with a fake shipping label for extra realism.</p>
+        <figure class="reveal fit"><div class="media"><img src="{{ I }}21.jpg" alt="Space Logist-X logo, white text with a swoosh on black" loading="lazy"></div><figcaption><b>Logo</b> Space Logist-X</figcaption></figure>
+        <p>For the worn look, the paper and stickers sit in their own group, with two grunge maps breaking up the mask. Grunges like leaks, wipes and fingerprints work well here, giving an uneven coating.</p>
+        <div class="pair">
+          <figure class="reveal"><div class="media"><img src="{{ I }}22.jpg" alt="Grunge mask and layer setup for the sticker wear" loading="lazy"></div><figcaption><b>Mask</b> two grunges</figcaption></figure>
+          <figure class="reveal"><div class="media"><img src="{{ I }}23.jpg" alt="Textured cargo crate with worn Space Logist-X decals and a heavy cargo label" loading="lazy"></div><figcaption><b>Crate</b> final textures</figcaption></figure>
+        </div>
+      </section>
+
+      <section class="bd-ch" id="lighting">
+        <h2 data-n="07">Lighting &amp; animation</h2>
+        <p>The early renders used UE4's Advanced Lighting map as a simple setup. For the final renders I built my own, and it doesn't take many lights to get something looking good.</p>
+        <figure class="reveal"><div class="media"><img src="{{ I }}24.jpg" alt="UE4 editor showing the few lights placed around the bike" loading="lazy"></div><figcaption><b>Lights</b> the main sources</figcaption></figure>
+        <p>The rest of the environment is a simple grey dome with a very high-contrast, colourful HDRI to emphasise the stylised look and light the dome from above. The HDRI's influence on the bike itself is kept low, because I wanted it to stay subtle.</p>
+        <figure class="reveal"><div class="media"><img src="{{ I }}25.jpg" alt="A grey dome around the bike, lit by a colourful neon HDRI" loading="lazy"></div><figcaption><b>Dome &amp; HDRI</b></figcaption></figure>
+        <h3>Making it feel alive</h3>
+        <p>To give the bike some life I added idle animations. In the first pass the wires didn't have materials yet, and the bike bottomed out too harshly.</p>
+        <div class="pair">
+          <figure class="reveal"><div class="media"><video data-src="{{ V }}clip2.mp4" muted loop playsinline preload="none" aria-label="First idle animation from the front"></video></div><figcaption><b>First pass</b> front</figcaption></figure>
+          <figure class="reveal"><div class="media"><video data-src="{{ V }}clip3.mp4" muted loop playsinline preload="none" aria-label="First idle animation from the rear"></video></div><figcaption><b>First pass</b> rear</figcaption></figure>
+        </div>
+        <p>In the reworked version the bike settles more gently and the flaps move in a more industrial way. I pictured them like a bus at a stop, flexing its hydraulics.</p>
+        <figure class="reveal"><div class="media"><video data-src="{{ V }}clip1.mp4" muted loop playsinline preload="none" aria-label="Reworked idle animation in the final lighting"></video></div><figcaption><b>Reworked</b> idle in the final lighting</figcaption></figure>
+      </section>
+
+      <section class="bd-ch" id="cel">
+        <h2 data-n="08">The cel-shaded variant</h2>
+        <p>I was happy with the renders, but when I showed them to friends for feedback, several said it looked like something from the <em>Borderlands</em> games. So I went all in and tried a cel-shaded post-process look.</p>
+        <p>Two post-process materials bring the effect together: one for the shadows and highlights, and one that draws an outline around the model. Both were fairly simple to build.</p>
+        <div class="pair">
+          <figure class="reveal"><div class="media"><img src="{{ I }}26.jpg" alt="UE4 material graph for the shadow post-process material" loading="lazy"></div><figcaption><b>Shadows</b> post-process material</figcaption></figure>
+          <figure class="reveal"><div class="media"><img src="{{ I }}27.jpg" alt="UE4 material graph for the outline post-process material" loading="lazy"></div><figcaption><b>Outline</b> post-process material</figcaption></figure>
+        </div>
+        <figure class="reveal"><div class="media"><video data-src="{{ V }}clip5.mp4" muted loop playsinline preload="none" aria-label="Final cel-shaded render of the hover bike"></video></div><figcaption><b>Final</b> cel-shaded render</figcaption></figure>      </section>
+    </div>
+  </div>
+</article>
+
+<a class="next" href="/projects/hover-bike/">
+  <img src="/img/hero/bikecel.jpg" alt="" loading="lazy">
+  <div><small>Back to the project →</small><strong>Hover Bike Courier</strong></div>
+</a>
+
+<div class="lb" role="dialog" aria-label="Image viewer"><button aria-label="Close">×</button><img alt=""><video muted loop playsinline controls></video></div>

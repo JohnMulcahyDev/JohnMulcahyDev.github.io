@@ -1,0 +1,59 @@
+/* breakdown.css: long-read "making of" pages (uses project.css for figures, pairs, lightbox) */
+
+/* ---------- Header ---------- */
+.bd-head { padding-block: 44px 48px; border-bottom: 1px solid var(--line); }
+.bd-head .back { font: 500 12px var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); transition: color .2s; }
+.bd-head .back:hover { color: var(--accent); }
+.bd-kicker { margin-top: 40px; font: 500 12px var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--accent); }
+.bd-head h1 { margin-top: 12px; font: 700 clamp(44px, 7.4vw, 112px)/.92 var(--display); text-transform: uppercase; letter-spacing: -.01em; }
+.standfirst { margin-top: 28px; max-width: 62ch; font-size: clamp(18px, 1.7vw, 21px); line-height: 1.6; color: #d4d7db; }
+.bd-meta { margin-top: 36px; display: grid; grid-template-columns: repeat(3, auto) 1fr; border: 1px solid var(--line); background: var(--panel); font: 400 12px var(--mono); }
+.bd-meta div { padding: 12px 16px; border-right: 1px solid var(--line); }
+.bd-meta div:last-child { border-right: 0; }
+.bd-meta dt { color: var(--muted); letter-spacing: .08em; text-transform: uppercase; margin-bottom: 6px; }
+.bd-meta dd { color: var(--text); }
+.bd-meta a { color: var(--accent); }
+
+/* ---------- Body: chapter list + content ---------- */
+.bd-body { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 64px; padding-top: 64px; }
+.bd-toc { position: sticky; top: calc(var(--bar) + 28px); align-self: start; }
+.bd-toc::before { content: "CHAPTERS"; display: block; font: 400 11px var(--mono); letter-spacing: .12em; color: var(--muted); padding-bottom: 10px; border-bottom: 1px solid var(--line); margin-bottom: 8px; }
+.bd-toc ol { list-style: none; counter-reset: ch; }
+.bd-toc li { counter-increment: ch; }
+.bd-toc a { display: flex; gap: 10px; padding: 7px 0 7px 10px; border-left: 2px solid transparent; font: 400 12px/1.4 var(--mono); color: var(--muted); transition: color .2s, border-color .2s; }
+.bd-toc a::before { content: counter(ch, decimal-leading-zero); color: rgba(255,255,255,.35); }
+.bd-toc a:hover { color: var(--text); }
+.bd-toc a.on { color: var(--text); border-left-color: var(--accent); }
+.bd-toc a.on::before { color: var(--accent); }
+
+/* ---------- Chapters ---------- */
+.bd-ch { padding-bottom: 88px; scroll-margin-top: calc(var(--bar) + 24px); }
+.bd-ch h2 { display: flex; align-items: baseline; gap: 16px; font: 700 clamp(28px, 3.2vw, 44px)/1 var(--display); text-transform: uppercase; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--line); }
+.bd-ch h2::before { content: attr(data-n); font: 500 13px var(--mono); letter-spacing: .1em; color: var(--accent); }
+.bd-ch h3 { margin: 44px 0 14px; font: 500 12px var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--accent); }
+.bd-ch p, .bd-ch li { font-size: 17px; line-height: 1.7; color: #d4d7db; }
+.bd-ch p { max-width: 68ch; }
+.bd-ch p + p { margin-top: 1em; }
+.bd-ch b { color: var(--text); font-weight: 600; }
+.bd-ch figure, .bd-ch .pair, .bd-ch .row { margin-block: 28px; }
+.bd-ch .pair figure, .bd-ch .row figure { margin: 0; }
+.bd-ch figure.fit .media { display: inline-block; max-width: 100%; }
+.bd-ch figure.fit img { width: auto; max-width: 100%; }
+
+/* numbered process steps */
+.steps { list-style: none; counter-reset: st; max-width: 68ch; margin-block: 18px 8px; }
+.steps li { counter-increment: st; position: relative; padding: 12px 0 12px 46px; border-top: 1px solid var(--line); }
+.steps li:last-child { border-bottom: 1px solid var(--line); }
+.steps li::before { content: counter(st, decimal-leading-zero); position: absolute; left: 0; top: 14px; font: 500 12px var(--mono); color: var(--accent); }
+
+/* aside */
+.bd-ch p.note { margin-top: 28px; padding: 16px 20px; border: 1px solid var(--line); border-left: 2px solid var(--accent); background: var(--panel); font-size: 16px; }
+
+@media (max-width: 900px) {
+  .bd-body { grid-template-columns: 1fr; gap: 0; padding-top: 40px; }
+  .bd-toc { display: none; }
+  .bd-meta { grid-template-columns: 1fr 1fr; }
+  .bd-meta div:nth-child(2) { border-right: 0; }
+  .bd-meta div:not(:last-child) { border-bottom: 1px solid var(--line); }
+  .bd-meta div:last-child { grid-column: 1 / -1; }
+}

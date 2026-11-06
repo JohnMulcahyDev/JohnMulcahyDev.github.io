@@ -88,6 +88,19 @@ figure video { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: co
 .vs .arrow { color: var(--accent); font-size: 22px; }
 .vs figure img { aspect-ratio: 16 / 9; object-fit: cover; }
 
+/* ---------- Link card to a breakdown page ---------- */
+.bd-link { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); border: 1px solid var(--line); background: var(--panel); overflow: hidden; transition: border-color .3s; }
+.bd-link:hover { border-color: var(--accent); }
+.bd-link img { width: 100%; height: 100%; object-fit: cover; background: #2a2d33; transition: transform 1s cubic-bezier(.2,.7,.2,1); }
+.bd-link:hover img { transform: scale(1.03); }
+.bd-link div { padding: clamp(24px, 4vw, 48px); display: flex; flex-direction: column; justify-content: center; }
+.bd-link small { font: 500 12px var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--accent); }
+.bd-link strong { margin-top: 10px; font: 700 clamp(28px, 3.4vw, 48px)/1 var(--display); text-transform: uppercase; }
+.bd-link p { margin-top: 16px; color: #c3c7cc; line-height: 1.6; max-width: 46ch; }
+.bd-link .cta { align-self: flex-start; }
+.bd-link:hover .cta { border-color: var(--accent); color: var(--accent); }
+@media (max-width: 900px) { .bd-link { grid-template-columns: 1fr; } .bd-link img { aspect-ratio: 16 / 10; height: auto; } }
+
 /* ---------- Next project ---------- */
 .next { position: relative; display: block; height: 52vh; min-height: 320px; overflow: hidden; margin-top: 24px; }
 .next img { width: 100%; height: 100%; object-fit: cover; filter: brightness(.45); transition: filter .6s, transform 1.2s cubic-bezier(.2,.7,.2,1); }
