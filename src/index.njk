@@ -21,7 +21,7 @@ scripts: [home]
 
   <dl class="vp-stats" aria-live="polite">
     <div><dt>OBJECT</dt><dd>{{ first.title | asset }}</dd></div>
-    <div><dt>ENGINE</dt><dd>{{ first.engine }}</dd></div>
+    <div><dt>RENDERER</dt><dd>{{ first.engine }}</dd></div>
     <div><dt>CLASS</dt><dd>{{ first.class }}</dd></div>
     {% if first.latest %}<div class="latest"><dt>STATUS</dt><dd>LATEST</dd></div>{% endif %}
   </dl>
@@ -47,7 +47,7 @@ scripts: [home]
 <!-- ===== Properties strip ===== -->
 <section class="props">
   <h1><strong>Senior Vehicle Development Artist</strong> with 9 years building real-time vehicles, props and mechanical assets for games, VR and AR.</h1>
-  <ul class="tools"><li>Unreal Engine 5</li><li>Unity</li><li>Maya</li><li>3ds Max</li><li>ZBrush</li><li>Substance</li></ul>
+  <ul class="tools"><li>Unreal Engine 5</li><li>Unity</li><li>Maya</li><li>3ds Max</li><li>ZBrush</li><li>Adobe Suite</li></ul>
 </section>
 
 <!-- ===== Work grid (cards come from _data/work.json, in that order) ===== -->
@@ -64,12 +64,13 @@ scripts: [home]
   <div class="grid" id="grid">
     {%- for w in work %}
     {%- set tagName = "a" if w.url else "div" %}
+    {%- set pic = w | cardImage(collections.project) %}
     <{{ tagName }}{% if w.url %} href="{{ w.url }}"{% endif %} class="card reveal{% if w.featured %} featured{% endif %}{% if not w.url %} no-page{% endif %}" data-c="{{ w.cat }}"{% if w.featured %} data-featured{% endif %}>
       <div class="thumb">
-        {%- if w.video %}<video data-src="{{ w.video }}" poster="{{ w.img }}" muted loop playsinline preload="none" aria-label="{{ w.title }} turntable"></video>
-        {%- else %}<img src="{{ w.img }}" alt="{{ w.title }}" loading="lazy">{% endif -%}
+        {%- if w.video %}<video data-src="{{ w.video }}" poster="{{ pic.src }}" muted loop playsinline preload="none" aria-label="{{ w.title }} turntable"{% if pic.pos %} style="object-position: {{ pic.pos }}"{% endif %}></video>
+        {%- else %}<img src="{{ pic.src }}" alt="{{ w.title }}" loading="lazy"{% if pic.pos %} style="object-position: {{ pic.pos }}"{% endif %}>{% endif -%}
       </div>
-      <div class="meta"><h4>{{ w.title | asset }}</h4><span class="tag{% if 'NEW' in w.tag %} new{% endif %}">{{ w.tag }}</span></div>
+      <div class="meta"><h4>{{ w.title | asset }}</h4><span class="tag{% if 'LATEST' in w.tag %} new{% endif %}">{{ w.tag }}</span></div>
     </{{ tagName }}>
     {%- endfor %}
   </div>

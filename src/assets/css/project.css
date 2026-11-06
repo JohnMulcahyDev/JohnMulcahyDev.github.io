@@ -1,15 +1,33 @@
 /* Project-page template styles. Shared bits live in site.css */
 body { line-height: 1.65; }
 
-/* ---------- Project hero: viewport framing ---------- */
-.p-hero { position: relative; height: 92vh; height: 92svh; min-height: 520px; margin-top: var(--bar); overflow: hidden; background: #000; }
-.p-hero img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; animation: settle 2.4s cubic-bezier(.2,.7,.2,1) both; }
-@keyframes settle { from { transform: scale(1.05); opacity: 0; } to { transform: none; opacity: 1; } }
-.p-hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,.4) 0%, transparent 18%, transparent 55%, rgba(10,11,13,.92) 100%); }
-.p-title { position: absolute; z-index: 3; right: 40px; bottom: 44px; text-align: right; max-width: 72%; }
-.back { display: inline-flex; gap: 8px; font: 500 12px var(--mono); color: #c9ccd1; margin-bottom: 14px; border: 1px solid rgba(255,255,255,.25); padding: 6px 10px; background: rgba(10,11,13,.5); }
+/* ---------- Project hero: inspector panel + framed viewport ---------- */
+.p-hero {
+  display: grid; grid-template-columns: minmax(300px, .82fr) minmax(0, 2fr);
+  height: calc(90vh - var(--bar)); height: calc(90svh - var(--bar)); min-height: 520px; max-height: 980px;
+  margin-top: var(--bar); border-bottom: 1px solid var(--line);
+}
+/* Left: properties panel on a faint editor grid */
+.p-info {
+  display: flex; flex-direction: column; gap: 28px; padding: 28px var(--gutter) 36px;
+  background-color: var(--panel); border-right: 1px solid var(--line);
+  background-image: linear-gradient(rgba(255,255,255,.028) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.028) 1px, transparent 1px);
+  background-size: 28px 28px; background-position: -1px -1px;
+}
+.back { align-self: flex-start; display: inline-flex; gap: 8px; font: 500 12px var(--mono); color: #c9ccd1; border: 1px solid var(--line); padding: 6px 10px; background: var(--bg); }
 .back:hover { color: var(--accent); border-color: var(--accent); }
-h1 { font: 700 clamp(44px, 7vw, 112px)/.92 var(--display); text-transform: uppercase; letter-spacing: -.01em; margin-top: 10px; text-shadow: 0 2px 24px rgba(0,0,0,.55); }
+.p-name { margin-top: auto; }
+h1 { font: 700 clamp(40px, 4.4vw, 84px)/.92 var(--display); text-transform: uppercase; letter-spacing: -.01em; margin-top: 12px; overflow-wrap: anywhere; }
+.p-props { border: 1px solid var(--line); background: var(--bg); font: 400 12px var(--mono); }
+.p-props div { display: flex; justify-content: space-between; gap: 16px; padding: 9px 12px; border-bottom: 1px solid var(--line); }
+.p-props div:last-child { border-bottom: 0; }
+.p-props dt { color: var(--muted); text-transform: uppercase; letter-spacing: .08em; }
+.p-props dd { color: var(--y); text-align: right; }
+/* Right: the render, inset in a framed viewport */
+.p-frame { position: relative; margin: 18px; overflow: hidden; background: #000; outline: 1px solid var(--line); outline-offset: 5px; }
+.p-frame img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 40%; animation: settle 1.6s cubic-bezier(.2,.7,.2,1) both; }
+@keyframes settle { from { transform: scale(1.04); opacity: 0; } to { transform: none; opacity: 1; } }
+.p-frame .gizmo { left: 22px; bottom: 26px; }
 
 /* ---------- Overview: intro + details panel ---------- */
 .overview { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(300px, 1fr); gap: 56px; padding-block: 56px 72px; }
@@ -47,6 +65,9 @@ figure video { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: co
 .videos { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
 .videos video { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; background: #000; }
 .videos .wide { grid-column: 1 / -1; }
+/* row: side by side at one shared height; each figure's flex-grow is its aspect ratio */
+.row { display: flex; gap: 24px; align-items: flex-start; }
+.row figure { flex-basis: 0; min-width: 0; }
 .vs { display: grid; grid-template-columns: 1fr auto 1fr; gap: 20px; align-items: center; }
 .vs .arrow { color: var(--accent); font-size: 22px; }
 .vs figure img { aspect-ratio: 16 / 9; object-fit: cover; }
@@ -63,16 +84,25 @@ figure video { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: co
 .lb { position: fixed; inset: 0; z-index: 60; background: rgba(5,6,7,.94); display: grid; place-items: center; padding: 4vh 4vw; opacity: 0; pointer-events: none; transition: opacity .3s; cursor: zoom-out; }
 .lb.open { opacity: 1; pointer-events: auto; }
 .lb img { max-height: 92vh; width: auto; }
+.lb video { max-height: 92vh; max-width: 92vw; width: auto; background: #000; cursor: default; }
+.lb[data-mode="img"] video, .lb[data-mode="video"] img, .lb:not([data-mode]) video { display: none; }
+figure video { cursor: zoom-in; }
 .lb button { position: absolute; top: 18px; right: 22px; background: none; border: 0; color: #fff; font-size: 30px; cursor: pointer; }
 
 @media (max-width: 900px) {
   .overview { grid-template-columns: 1fr; gap: 36px; }
   .videos, .pair { grid-template-columns: 1fr; }
+  .row { flex-direction: column; } .row figure { flex: none !important; width: 100%; }
+  .row video { max-height: 78svh; }
   .vs { grid-template-columns: 1fr; } .vs .arrow { justify-self: center; transform: rotate(90deg); }
 }
+@media (max-width: 900px) {
+  .p-hero { grid-template-columns: 1fr; height: auto; min-height: 0; max-height: none; }
+  .p-frame { order: -1; aspect-ratio: 16 / 10; margin: 12px; }
+  .p-info { border-right: 0; border-top: 1px solid var(--line); gap: 20px; padding-block: 20px 28px; }
+  .p-info .back { order: -1; }
+}
 @media (max-width: 680px) {
-  .p-hero { height: 78svh; }
-  .p-title { left: 16px; right: 16px; bottom: 28px; max-width: none; }
   .s-head span { display: none; }
   section.block { padding-bottom: 64px; }
 }

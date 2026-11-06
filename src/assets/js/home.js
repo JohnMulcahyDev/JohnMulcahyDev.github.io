@@ -39,7 +39,7 @@
     titleBox.querySelector(".view").href = d.href || "#work";
     stats.innerHTML = `
       <div><dt>OBJECT</dt><dd>${d.object}</dd></div>
-      <div><dt>ENGINE</dt><dd>${d.engine}</dd></div>
+      <div><dt>RENDERER</dt><dd>${d.engine}</dd></div>
       <div><dt>CLASS</dt><dd>${d.class}</dd></div>
       ${s.hasAttribute("data-latest") ? '<div class="latest"><dt>STATUS</dt><dd>LATEST</dd></div>' : ""}`;
     countBox.innerHTML = `<b>${pad(n + 1)}</b> / ${pad(slides.length)}`;
@@ -58,8 +58,16 @@
 
   vp.querySelector(".prev").onclick = () => go(i - 1);
   vp.querySelector(".next").onclick = () => go(i + 1);
-  vp.addEventListener("mouseenter", () => { vp.classList.add("paused"); clearTimeout(timer); });
-  vp.addEventListener("mouseleave", () => { vp.classList.remove("paused"); restartDot(); restart(); });
+  // Pause only while the pointer is on the timeline bar or the "Open project" button
+  // (small, deliberate targets: the title block is huge and caught stray hovers),
+  // or while the tab is hidden.
+  const pause = () => { vp.classList.add("paused"); clearTimeout(timer); };
+  const resume = () => { if (!vp.classList.contains("paused")) return; vp.classList.remove("paused"); restartDot(); restart(); };
+  vp.querySelectorAll(".timeline, .title-inner .view").forEach(el => {
+    el.addEventListener("mouseenter", pause);
+    el.addEventListener("mouseleave", resume);
+  });
+  document.addEventListener("visibilitychange", () => (document.hidden ? pause() : resume()));
   let x0 = null;
   vp.addEventListener("touchstart", e => x0 = e.touches[0].clientX, { passive: true });
   vp.addEventListener("touchend", e => {

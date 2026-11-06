@@ -20,18 +20,22 @@ scripts: [project]
 -#}
 {%- set n = work | workIndex(page.url) -%}
 <section class="p-hero">
-  <img src="{{ hero.img | pimg(folder) }}" alt="{{ hero.alt }}"{% if hero.pos %} style="object-position: {{ hero.pos }}"{% endif %}>
-  <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
-  <dl class="vp-stats">
-    <div><dt>OBJECT</dt><dd>{{ title | asset }}</dd></div>
-    <div><dt>ENGINE</dt><dd>{{ engine }}</dd></div>
-    <div><dt>CLASS</dt><dd>{{ class }}</dd></div>
-  </dl>
-  <div class="gizmo" aria-hidden="true"><i class="x"></i><i class="y"></i><i class="z"></i></div>
-  <div class="p-title">
+  <div class="p-info">
     <a href="/#work" class="back">← All work</a>
-    <div class="kicker">{{ kicker }}{% if n > 0 %} · {{ n | pad }}{% endif %}</div>
-    <h1>{{ title }}</h1>
+    <div class="p-name">
+      <div class="kicker">{{ kicker }}{% if n > 0 %} · {{ n | pad }}{% endif %}</div>
+      <h1>{{ title }}</h1>
+    </div>
+    <dl class="p-props">
+      <div><dt>Object</dt><dd>{{ title | asset }}</dd></div>
+      <div><dt>Engine</dt><dd>{{ engine }}</dd></div>
+      <div><dt>Class</dt><dd>{{ class }}</dd></div>
+    </dl>
+  </div>
+  <div class="p-frame">
+    <img src="{{ hero.img | pimg(folder) }}" alt="{{ hero.alt }}"{% if hero.pos %} style="object-position: {{ hero.pos }}"{% endif %}>
+    <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+    <div class="gizmo" aria-hidden="true"><i class="x"></i><i class="y"></i><i class="z"></i></div>
   </div>
 </section>
 
@@ -54,8 +58,9 @@ scripts: [project]
   <div class="s-head"><h2 data-n="{{ loop.index | pad }}">{{ s.title }}</h2>{% if s.note %}<span>{{ s.note }}</span>{% endif %}</div>
   <div class="{{ s.layout or 'stack' }}">
     {%- for m in s.items %}
-    <figure class="reveal{% if m.wide %} wide{% endif %}"><div class="media">
-      {%- if m.video %}<video data-src="{{ m.video | pvid(folder) }}"{% if m.poster %} poster="{{ m.poster | pimg(folder) }}"{% endif %} muted loop playsinline preload="none"{% if m.alt %} aria-label="{{ m.alt }}"{% endif %}></video>
+    {%- set crop %}{% if m.ratio %}aspect-ratio: {{ m.ratio }};{% endif %}{% if m.pos %} object-position: {{ m.pos }};{% endif %}{% endset %}
+    <figure class="reveal{% if m.wide %} wide{% endif %}"{% if s.layout == "row" %} style="flex-grow: {{ m.ratio or 1.7778 }}"{% endif %}><div class="media">
+      {%- if m.video %}<video data-src="{{ m.video | pvid(folder) }}"{% if m.poster %} poster="{{ m.poster | pimg(folder) }}"{% endif %} muted loop playsinline preload="none"{% if m.alt %} aria-label="{{ m.alt }}"{% endif %}{% if crop %} style="{{ crop | trim }}"{% endif %}></video>
       {%- else %}<img src="{{ m.src | pimg(folder) }}" alt="{{ m.alt }}" loading="lazy">{% endif -%}
     </div>{% if m.cap %}<figcaption>{{ m.cap | safe }}</figcaption>{% endif %}</figure>
     {%- endfor %}
@@ -74,4 +79,4 @@ scripts: [project]
 </a>
 {%- endif %}
 
-<div class="lb" role="dialog" aria-label="Image viewer"><button aria-label="Close">×</button><img alt=""></div>
+<div class="lb" role="dialog" aria-label="Image viewer"><button aria-label="Close">×</button><img alt=""><video muted loop playsinline controls></video></div>

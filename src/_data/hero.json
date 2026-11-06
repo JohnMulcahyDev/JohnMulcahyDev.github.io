@@ -1,7 +1,7 @@
 [
   { "title": "Hover Bike Courier", "engine": "Unreal Engine 4", "class": "Concept vehicle", "latest": true, "url": "/projects/hover-bike/",
     "img": "/img/hero/bikecel.jpg", "pos": "50% 30%", "alt": "Side view of the orange and blue hover bike floating above its shadow" },
-  { "title": "McLaren 520S", "engine": "Unreal Engine 4", "class": "GT racing", "url": "/projects/mclaren-520s/",
+  { "title": "McLaren 570S", "engine": "Unreal Engine 4", "class": "Vehicle", "url": "/projects/mclaren-570s/",
     "img": "/img/hero/mclaren5.jpg", "pos": "50% 45%", "alt": "Close front three-quarter view of a papaya McLaren GT4 in a dark garage" },
   { "title": "BMW M4 DTM", "engine": "Unreal Engine 4", "class": "GT collection", "url": "/projects/gt-collection/",
     "img": "/img/hero/dtm.jpg", "alt": "Side profile of a yellow BMW M4 DTM car" },
