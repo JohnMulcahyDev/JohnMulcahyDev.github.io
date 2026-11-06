@@ -42,6 +42,8 @@ figcaption b::before { content: "▸ "; color: var(--accent); }
 
 .stack { display: grid; gap: 24px; }
 .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.pair .wide { grid-column: 1 / -1; }
+figure video { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; background: #000; }
 .videos { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
 .videos video { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; background: #000; }
 .videos .wide { grid-column: 1 / -1; }

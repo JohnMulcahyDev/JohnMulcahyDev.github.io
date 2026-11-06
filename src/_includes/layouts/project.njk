@@ -7,14 +7,20 @@ scripts: [project]
 {#-
   Project page template. A project file sets these in its front matter:
     title, description, kicker, engine, class
-    hero: { img, alt, pos }
-    intro: HTML paragraphs        cta: { label, url }        (optional)
-    specs: list of [label, value] rows; a value of "TODO" shows as a reminder
-    next:  { title, img, url }                              (optional)
-  Everything written below the front matter becomes the numbered sections.
+    folder:  the project's folder name under img/projects/ and video/projects/
+    hero:    { img, alt, pos }   img can be short ("03") when it's in the folder
+    intro:   HTML paragraphs       cta: { label, url }   (optional)
+    specs:   list of [label, value] rows; a value of "TODO" shows as a reminder
+    sections: list of { title, note, layout: stack|pair, items: [...] }
+      each item is { src: "03", alt, cap } for an image
+               or { video: "clip1", poster: "01", cap } for a looping video
+      add  wide: true  to make an item span both columns in a pair
+  The "Next project" banner follows the order in _data/work.json automatically.
+  Anything written below the front matter is added after the sections.
 -#}
+{%- set n = work | workIndex(page.url) -%}
 <section class="p-hero">
-  <img src="{{ hero.img }}" alt="{{ hero.alt }}"{% if hero.pos %} style="object-position: {{ hero.pos }}"{% endif %}>
+  <img src="{{ hero.img | pimg(folder) }}" alt="{{ hero.alt }}"{% if hero.pos %} style="object-position: {{ hero.pos }}"{% endif %}>
   <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
   <dl class="vp-stats">
     <div><dt>OBJECT</dt><dd>{{ title | asset }}</dd></div>
@@ -24,7 +30,7 @@ scripts: [project]
   <div class="gizmo" aria-hidden="true"><i class="x"></i><i class="y"></i><i class="z"></i></div>
   <div class="p-title">
     <a href="/#work" class="back">← All work</a>
-    <div class="kicker">{{ kicker }}</div>
+    <div class="kicker">{{ kicker }}{% if n > 0 %} · {{ n | pad }}{% endif %}</div>
     <h1>{{ title }}</h1>
   </div>
 </section>
@@ -43,13 +49,29 @@ scripts: [project]
   {% endif %}
 </div>
 
+{%- for s in sections %}
+<section class="block wrap">
+  <div class="s-head"><h2 data-n="{{ loop.index | pad }}">{{ s.title }}</h2>{% if s.note %}<span>{{ s.note }}</span>{% endif %}</div>
+  <div class="{{ s.layout or 'stack' }}">
+    {%- for m in s.items %}
+    <figure class="reveal{% if m.wide %} wide{% endif %}"><div class="media">
+      {%- if m.video %}<video data-src="{{ m.video | pvid(folder) }}"{% if m.poster %} poster="{{ m.poster | pimg(folder) }}"{% endif %} muted loop playsinline preload="none"{% if m.alt %} aria-label="{{ m.alt }}"{% endif %}></video>
+      {%- else %}<img src="{{ m.src | pimg(folder) }}" alt="{{ m.alt }}" loading="lazy">{% endif -%}
+    </div>{% if m.cap %}<figcaption>{{ m.cap | safe }}</figcaption>{% endif %}</figure>
+    {%- endfor %}
+  </div>
+</section>
+{%- endfor %}
+
 {{ content | safe }}
 
-{% if next %}
-<a class="next" href="{{ next.url }}">
-  <img src="{{ next.img }}" alt="" loading="lazy">
-  <div><small>Next project →</small><strong>{{ next.title }}</strong></div>
+{%- set nx = work | nextProject(page.url) %}
+{%- if nx %}
+{%- set nxPage = collections.project | pageByUrl(nx.url) %}
+<a class="next" href="{{ nx.url }}">
+  <img src="{{ (nxPage.data.hero.img | pimg(nxPage.data.folder)) if nxPage else nx.img }}" alt="" loading="lazy">
+  <div><small>Next project →</small><strong>{{ nx.title }}</strong></div>
 </a>
-{% endif %}
+{%- endif %}
 
 <div class="lb" role="dialog" aria-label="Image viewer"><button aria-label="Close">×</button><img alt=""></div>

@@ -27,11 +27,13 @@ Images go in `src/img/`, videos in `src/video/`, the CV in `src/files/`.
 
 ## Add a project page
 
-1. Copy `src/projects/hover-bike.njk` to `src/projects/<name>.njk`. It will appear at `/projects/<name>/`.
-2. Change the front matter at the top: title, kicker, engine, class, hero image, intro, specs, next project. A spec value of `TODO` shows in orange as a reminder.
-3. Replace the sections below the `---` with that project's images and videos. Each section is a numbered panel (`data-n="01"`); use `.stack` for full-width images, `.pair` for two side by side, `.videos` for clips.
-4. In `src/_data/work.json`, add `"url": "/projects/<name>/"` to that project's card so the grid links to it.
+1. Put the images in `src/img/projects/<name>/` named `01.jpg`, `02.jpg`… (about 1920px wide) and any videos in `src/video/projects/<name>/` as `clip1.mp4`, `clip2.mp4`…
+2. Copy a similar page, e.g. `src/projects/sci-fi-door.njk`, to `src/projects/<name>.njk`. It will appear at `/projects/<name>/`.
+3. Edit its settings: title, kicker, engine, class, `folder: <name>`, hero image, intro, specs, and `sections`. In a section, `layout: pair` puts images two-up (add `wide: true` to stretch one across) and leaving it out stacks them full width. Images are written as `{ src: "03", alt: "…" }`, videos as `{ video: clip1, poster: "01" }`. A spec value of `TODO` shows in orange as a reminder.
+4. In `src/_data/work.json`, add `"url": "/projects/<name>/"` to that project's card. The grid order also sets the "Next project" banner and the number in the kicker.
 5. If the old site had a page for it, point its entry in `src/_data/redirects.json` at the new URL.
+
+(The Hover Bike page writes its sections out in HTML instead, which is fine for one-off layouts.)
 
 ## Publishing
 

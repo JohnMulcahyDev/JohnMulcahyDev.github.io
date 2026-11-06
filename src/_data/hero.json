@@ -1,14 +1,14 @@
 [
   { "title": "Hover Bike Courier", "engine": "Unreal Engine 4", "class": "Concept vehicle", "latest": true, "url": "/projects/hover-bike/",
     "img": "/img/hero/bikecel.jpg", "pos": "50% 30%", "alt": "Side view of the orange and blue hover bike floating above its shadow" },
-  { "title": "McLaren 520S", "engine": "Unreal Engine 4", "class": "GT racing",
+  { "title": "McLaren 520S", "engine": "Unreal Engine 4", "class": "GT racing", "url": "/projects/mclaren-520s/",
     "img": "/img/hero/mclaren5.jpg", "pos": "50% 45%", "alt": "Close front three-quarter view of a papaya McLaren GT4 in a dark garage" },
-  { "title": "BMW M4 DTM", "engine": "Unreal Engine 4", "class": "GT collection",
+  { "title": "BMW M4 DTM", "engine": "Unreal Engine 4", "class": "GT collection", "url": "/projects/gt-collection/",
     "img": "/img/hero/dtm.jpg", "alt": "Side profile of a yellow BMW M4 DTM car" },
-  { "title": "Dual Clutch Gearbox", "engine": "Corona", "class": "Visualisation",
+  { "title": "Dual Clutch Gearbox", "engine": "Corona", "class": "Visualisation", "url": "/projects/dual-clutch-gearbox/",
     "img": "/img/hero/dct.jpg", "alt": "Exploded render of a dual clutch transmission's gears and clutch drum" },
-  { "title": "Cruiser Skateboard", "engine": "Marmoset", "class": "Prop",
+  { "title": "Cruiser Skateboard", "engine": "Marmoset", "class": "Prop", "url": "/projects/cruiser-skateboard/",
     "img": "/img/hero/skate2.jpg", "pos": "50% 45%", "alt": "Render of the cruiser skateboard" },
-  { "title": "Ajax Armoured Vehicle", "engine": "Corona", "class": "Military vehicle",
+  { "title": "Ajax Armoured Vehicle", "engine": "Corona", "class": "Military vehicle", "url": "/projects/military-tanks/",
     "img": "/img/hero/ajax3.jpg", "alt": "Render of the Ajax armoured vehicle" }
 ]
